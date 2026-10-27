@@ -89,10 +89,19 @@ npx serve .
 4. Select `main` branch and `/ (root)` folder.
 5. Click **Save**. Your site will be live at `https://<username>.github.io/<repo-name>/`.
 
+### Deploying to Vercel (Zero-Config Supported)
+1. Push this repository to GitHub or GitLab.
+2. In the [Vercel Dashboard](https://vercel.com/new), import your repository.
+3. Vercel automatically detects the configured `vercel.json` and Vite framework:
+   - **Framework Preset:** Vite
+   - **Build Command:** `npm run build`
+   - **Output Directory:** `dist`
+4. Click **Deploy**. Vercel will deploy without build errors or 404s.
+
 ### Deploying to Netlify
 1. Log into [Netlify](https://www.netlify.com).
 2. Drag and drop the project folder directly onto the Netlify dashboard, or connect your Git repository.
-3. Set **Build command** to empty (blank) and **Publish directory** to `.`.
+3. Set **Build command** to `npm run build` and **Publish directory** to `dist` (or blank / `.` for raw static).
 4. Deploy site instantly.
 
 ---
