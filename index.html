@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FairShift 360 — Fair Work, Fair Pay, Safer Workplaces</title>
+  <meta name="description" content="FairShift 360: Multilingual workforce management platform aligned with UN SDG 8. Features attendance tracking, transparent pay explanation, Safe Voice safety reporting, and role-based dashboards." />
+  <meta property="og:title" content="FairShift 360 — Fair Work, Fair Pay, Safer Workplaces" />
+  <meta property="og:description" content="FairShift 360: Multilingual workforce management platform aligned with UN SDG 8. Features attendance tracking, transparent pay explanation, Safe Voice safety reporting, and role-based dashboards." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Preconnect and Styling -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- =========================================================================
+       1. ACTUAL APPLICATION LOGIN PORTAL (Dedicated Full-Screen View)
+       ========================================================================= -->
+  <div id="login-portal-view" class="login-portal-wrapper">
+    <!-- Top UN SDG 8 Banner on Login Portal -->
+    <header class="sdg-header-bar">
+      <div class="sdg-badge-text">
+        <span class="sdg-icon">SDG 8</span>
+        <span data-i18n="sdg_badge">Aligned with UN SDG 8: Decent Work & Economic Growth</span>
+      </div>
+      <div style="font-size: 0.75rem; opacity: 0.9;">
+        Universal Human Dignity & Worker Rights Protocol
+      </div>
+    </header>
+
+    <!-- Navigation Header for Login Portal -->
+    <nav class="login-portal-nav">
+      <div class="login-portal-brand">
+        <div class="login-portal-brand-icon">⚖</div>
+        <div class="login-portal-brand-text">
+          <h1 data-i18n="app_title">FairShift 360</h1>
+          <p data-i18n="app_tagline">Fair Work, Fair Pay, Safer Workplaces</p>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <!-- Language Selector -->
+        <div class="lang-selector-wrap" title="Change Language / மொழியை மாற்றുക">
+          <span style="font-size: 0.9rem;">🌐</span>
+          <select id="login-lang-select" aria-label="Select Language">
+            <option value="en">English</option>
+            <option value="ta">தமிழ் (Tamil)</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+            <option value="te">తెలుగు (Telugu)</option>
+            <option value="ml">മലയാളം (Malayalam)</option>
+          </select>
+        </div>
+
+        <!-- Supabase Status / Demo Badge -->
+        <div id="login-supabase-status-badge" class="badge-mode badge-demo" title="Click to configure Supabase credentials">
+          ● <span data-i18n="demo_mode_active">Simulated Demo Mode Active</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Center Login Application Box -->
+    <div class="login-portal-center">
+      <div class="login-portal-grid">
+        <!-- Left Brand & Mission Pillar Column -->
+        <aside class="login-portal-sidebar">
+          <div>
+            <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(13, 148, 136, 0.2); border: 1px solid var(--teal-accent); padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; color: var(--teal-light); margin-bottom: 20px;">
+              <span>✦</span> Workforce Rights & Compliance Portal
+            </div>
+            <h2 style="font-size: 1.85rem; font-weight: 800; color: white; line-height: 1.2; margin-bottom: 14px;">
+              Ethical Shifts. Zero Wage Theft. Safe Workplaces.
+            </h2>
+            <p style="color: #CBD5E1; font-size: 0.92rem; line-height: 1.6; margin-bottom: 24px;">
+              FairShift 360 guarantees verified shift logs, transparent paycheck explainers with zero mystery deductions, whistleblower-protected safety reporting, and automated fatigue safeguards.
+            </p>
+
+            <ul class="value-props-list" style="margin-bottom: 0;">
+              <li>
+                <div class="prop-icon">⏱️</div>
+                <div>
+                  <strong>Statutory Shift Tracking</strong>
+                  <span>Automatic calculation of standard hours and 1.5x/2.0x overtime.</span>
+                </div>
+              </li>
+              <li>
+                <div class="prop-icon">💵</div>
+                <div>
+                  <strong>Explain My Pay</strong>
+                  <span>Step-by-step earnings breakdown with payroll dispute auditing.</span>
+                </div>
+              </li>
+              <li>
+                <div class="prop-icon">🛡️</div>
+                <div>
+                  <strong>Safe Voice Whistleblower Protection</strong>
+                  <span>Confidential and anonymous reporting with auditable tracking codes.</span>
+                </div>
+              </li>
+              <li>
+                <div class="prop-icon">❤️</div>
+                <div>
+                  <strong>Health & Fatigue Guard</strong>
+                  <span>Strict enforcement of ILO 48h weekly ceiling & 11h shift gap rest.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div style="margin-top: 32px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.75rem; color: #94A3B8;">
+            Protected by Row Level Security (RLS) & Multi-Role Cryptographic Isolation.
+          </div>
+        </aside>
+
+        <!-- Right Login Card -->
+        <div class="login-portal-card">
+          <div class="login-card-header">
+            <h2 data-i18n="signin_tab">Sign In to FairShift 360</h2>
+            <p data-i18n="app_tagline">Fair Work, Fair Pay, Safer Workplaces</p>
+          </div>
+
+          <!-- Question: Are you an existing user or a new user? -->
+          <div class="user-type-selector-box">
+            <div class="user-type-question-title" data-i18n="user_type_question">
+              Are you an existing user or a new user?
+            </div>
+            <div class="user-type-buttons-row">
+              <button type="button" id="btn-select-existing" class="user-type-btn active">
+                <span>👤</span> <span data-i18n="existing_user_choice">Existing User</span>
+              </button>
+              <button type="button" id="btn-select-new" class="user-type-btn">
+                <span>✨</span> <span data-i18n="new_user_choice">New User</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- FORM A: Existing User Login -->
+          <form id="form-signin">
+            <div class="form-group">
+              <label for="signin-email" data-i18n="email_label">Email / Work ID</label>
+              <input type="email" id="signin-email" placeholder="e.g. factory.worker@fairshift.demo" required autocomplete="username" />
+            </div>
+
+            <div class="form-group">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <label for="signin-password" data-i18n="password_label" style="margin-bottom: 0;">Password</label>
+                <a href="javascript:void(0)" id="link-need-help" style="font-size: 0.75rem; color: var(--teal-accent); text-decoration: none;" data-i18n="need_help">Need help?</a>
+              </div>
+              <div class="password-input-wrap">
+                <input type="password" id="signin-password" placeholder="••••••••" required autocomplete="current-password" />
+                <button type="button" class="btn-toggle-password" id="btn-toggle-signin-password" title="Show/Hide Password" aria-label="Toggle password visibility">👁️</button>
+              </div>
+            </div>
+
+            <div class="form-group" style="display: flex; align-items: center; gap: 8px; margin-bottom: 20px;">
+              <input type="checkbox" id="signin-remember" style="width: auto; cursor: pointer;" checked />
+              <label for="signin-remember" style="margin-bottom: 0; cursor: pointer; font-size: 0.82rem; color: var(--text-muted);" data-i18n="remember_me">
+                Remember this device
+              </label>
+            </div>
+
+            <button type="submit" class="btn-submit" data-i18n="login_btn">
+              <span>Log In to Workspace</span> <span>→</span>
+            </button>
+          </form>
+
+          <!-- FORM B: New User Registration -->
+          <form id="form-register" class="hidden">
+            <div class="form-group">
+              <label for="reg-name" data-i18n="name_label">Full Legal Name</label>
+              <input type="text" id="reg-name" placeholder="e.g. Ramesh Babu" required />
+            </div>
+
+            <div class="form-group">
+              <label for="reg-email" data-i18n="email_label">Email / Work ID</label>
+              <input type="email" id="reg-email" placeholder="e.g. ramesh@workplace.org" required />
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div class="form-group">
+                <label for="reg-password" data-i18n="password_label">Password</label>
+                <div class="password-input-wrap">
+                  <input type="password" id="reg-password" required minlength="6" />
+                  <button type="button" class="btn-toggle-password" id="btn-toggle-reg-password" title="Show/Hide Password">👁️</button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="reg-confirm-password" data-i18n="confirm_password_label">Confirm</label>
+                <input type="password" id="reg-confirm-password" required minlength="6" />
+              </div>
+            </div>
+
+            <!-- Sector & Role Selection Radio Cards -->
+            <div class="form-group">
+              <label data-i18n="select_sector">Select Sector & Approved Role</label>
+              <div class="sector-select-grid">
+                <div class="sector-radio-card selected" id="card-sector-factory" data-sector="factory">
+                  <span class="sector-name">🏭 Factory & Manufacturing</span>
+                  <span class="sector-role">Role: Factory Worker / Operator</span>
+                </div>
+                <div class="sector-radio-card" id="card-sector-school" data-sector="school">
+                  <span class="sector-name">🏫 School / College</span>
+                  <span class="sector-role">Role: Academic Staff / Teacher</span>
+                </div>
+              </div>
+              <input type="hidden" id="reg-sector" value="factory" />
+            </div>
+
+            <!-- Optional Personal Details Accordion -->
+            <details style="margin-bottom: 16px; background: var(--bg-muted); padding: 8px 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); font-size: 0.85rem;">
+              <summary style="cursor: pointer; font-weight: 600; color: var(--primary-navy);">
+                + Optional Personal Details (DOB, Phone, Address)
+              </summary>
+              <div style="margin-top: 10px;">
+                <div class="form-group">
+                  <label for="reg-dob" data-i18n="dob_label">Date of Birth</label>
+                  <input type="date" id="reg-dob" />
+                </div>
+                <div class="form-group">
+                  <label for="reg-phone" data-i18n="phone_label">Mobile Number</label>
+                  <input type="tel" id="reg-phone" placeholder="+91 98765 43210" />
+                </div>
+                <div class="form-group">
+                  <label for="reg-address" data-i18n="address_label">Residential Address</label>
+                  <input type="text" id="reg-address" placeholder="Protected under strict RLS" />
+                </div>
+              </div>
+            </details>
+
+            <p class="form-help" style="margin-bottom: 16px; color: var(--text-muted); font-size: 0.75rem;" data-i18n="registration_note">
+              Public registration creates a verified Worker/Staff account. Administrative credentials require supervisor sign-off.
+            </p>
+
+            <button type="submit" class="btn-submit" data-i18n="register_btn">
+              <span>Create Worker Profile</span> <span>→</span>
+            </button>
+          </form>
+
+          <!-- Quick Demo 1-Click Persona Access -->
+          <div class="demo-quick-box">
+            <div class="demo-quick-title">
+              <strong data-i18n="quick_demo_login">Try Demo Account</strong>
+              <span data-i18n="quick_demo_desc">1-Click Instant Test</span>
+            </div>
+            <div class="demo-chips-grid">
+              <button type="button" class="demo-chip" data-demo-email="school.staff@fairshift.demo" data-demo-pass="SchoolDemo@360">
+                🏫 School Staff
+              </button>
+              <button type="button" class="demo-chip" data-demo-email="school.admin@fairshift.demo" data-demo-pass="AdminDemo@360">
+                🏛️ School Admin
+              </button>
+              <button type="button" class="demo-chip" data-demo-email="factory.worker@fairshift.demo" data-demo-pass="WorkerDemo@360">
+                🏭 Factory Worker
+              </button>
+              <button type="button" class="demo-chip" data-demo-email="factory.supervisor@fairshift.demo" data-demo-pass="SupervisorDemo@360">
+                👷 Factory Supervisor
+              </button>
+              <button type="button" class="demo-chip" data-demo-email="factory.hr@fairshift.demo" data-demo-pass="FactoryAdmin@360">
+                📑 Factory HR
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Login Portal Footer -->
+    <footer class="login-portal-footer">
+      <div>
+        FairShift 360 — Aligned with UN Sustainable Development Goal 8 (Decent Work and Economic Growth).
+      </div>
+      <div style="font-size: 0.72rem; opacity: 0.8; margin-top: 4px;">
+        Equal pay for work of equal value • Freedom from forced overtime • Protection of whistleblowers
+      </div>
+    </footer>
+  </div>
+
+  <!-- =========================================================================
+       2. AUTHENTICATED APPLICATION PORTAL (Shown only after login)
+       ========================================================================= -->
+  <div id="app-portal-view" class="hidden">
+    <!-- Top UN SDG 8 Banner inside App -->
+    <header class="sdg-header-bar">
+      <div class="sdg-badge-text">
+        <span class="sdg-icon">SDG 8</span>
+        <span data-i18n="sdg_badge">Aligned with UN SDG 8: Decent Work & Economic Growth</span>
+      </div>
+      <div style="font-size: 0.75rem; opacity: 0.9;">
+        Universal Human Dignity & Worker Rights Protocol
+      </div>
+    </header>
+
+    <!-- Main Navigation Bar inside App -->
+    <nav class="navbar">
+      <div class="brand-section">
+        <div class="brand-logo-icon">⚖</div>
+        <div class="brand-titles">
+          <h1 data-i18n="app_title">FairShift 360</h1>
+          <p data-i18n="app_tagline">Fair Work, Fair Pay, Safer Workplaces</p>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <!-- In-App Language Selector -->
+        <div class="lang-selector-wrap" title="Change Language / மொழியை மாற்றുക">
+          <span style="font-size: 0.9rem;">🌐</span>
+          <select id="app-lang-select" aria-label="Select Language">
+            <option value="en">English</option>
+            <option value="ta">தமிழ் (Tamil)</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+            <option value="te">తెలుగు (Telugu)</option>
+            <option value="ml">മലയാളം (Malayalam)</option>
+          </select>
+        </div>
+
+        <!-- Supabase Status Badge -->
+        <div id="app-supabase-status-badge" class="badge-mode badge-demo" title="Click to configure Supabase credentials">
+          ● <span data-i18n="demo_mode_active">Simulated Demo Mode Active</span>
+        </div>
+
+        <!-- User Profile Pill -->
+        <div id="user-profile-badge" style="display: flex; align-items: center; gap: 8px;">
+          <span id="user-sector-badge" class="sector-badge factory">Factory</span>
+          <div style="text-align: right; line-height: 1.1;">
+            <div id="user-name-display" style="font-size: 0.85rem; font-weight: 700; color: white;">User</div>
+            <div id="user-role-display" style="font-size: 0.72rem; color: #94A3B8;">Role</div>
+          </div>
+        </div>
+
+        <!-- Sign Out Button -->
+        <button id="btn-signout" class="btn-header" data-i18n="sign_out">Sign Out</button>
+      </div>
+    </nav>
+
+    <!-- Subnav Tabs for Authenticated Users -->
+    <div id="authenticated-nav" class="authenticated-nav">
+      <button class="nav-tab-btn active" data-tab="dashboard">
+        <span>📊</span> <span data-i18n="nav_dashboard">Overview</span>
+      </button>
+      <button class="nav-tab-btn" data-tab="shifts">
+        <span>⏱️</span> <span data-i18n="nav_shifts">Attendance & Shifts</span>
+      </button>
+      <button class="nav-tab-btn" data-tab="pay">
+        <span>💰</span> <span data-i18n="nav_pay">Explain My Pay</span>
+      </button>
+      <button class="nav-tab-btn" data-tab="safety">
+        <span>🛡️</span> <span data-i18n="nav_safety">Safe Voice (Safety)</span>
+      </button>
+      <button class="nav-tab-btn" data-tab="feedback">
+        <span>🔒</span> <span data-i18n="nav_feedback">Anonymous Feedback</span>
+      </button>
+      <button class="nav-tab-btn" data-tab="skills">
+        <span>🎓</span> <span data-i18n="nav_skills">Skill Passport</span>
+      </button>
+      <button class="nav-tab-btn" data-tab="fatigue">
+        <span>❤️</span> <span data-i18n="nav_fatigue">Fatigue Alerts</span>
+      </button>
+      <button id="nav-admin-tab" class="nav-tab-btn hidden" data-tab="admin" style="color: #0369A1; font-weight: 700;">
+        <span>⚙️</span> <span data-i18n="nav_admin">Management Console</span>
+      </button>
+    </div>
+
+    <!-- FATIGUE & HEALTH ALERT STRIP -->
+    <div id="fatigue-alert-strip" class="alert-strip hidden">
+      <!-- Populated dynamically by timer script -->
+    </div>
+
+    <!-- Application Dashboard Content Container -->
+    <main class="container">
+      <section id="dashboard-section">
+      
+      <!-- SUBVIEW A: OVERVIEW -->
+      <div id="view-overview">
+        <!-- Live Shift Clock-In / Clock-Out Card -->
+        <div class="clock-card">
+          <div>
+            <div id="clock-status-text" style="font-size: 0.9rem; font-weight: 600; color: #94A3B8; text-transform: uppercase;">
+              Today's Work Status
+            </div>
+            <div id="clock-timer-display" class="clock-timer-display">00:00:00</div>
+            <div style="font-size: 0.8rem; color: #CBD5E1; margin-top: 4px;">
+              Overtime rate applies automatically after 8.0 continuous standard hours.
+            </div>
+          </div>
+
+          <div class="clock-actions">
+            <button id="btn-clock-in" class="btn-clock-in" data-i18n="shift_clock_in">Clock In Shift</button>
+            <button id="btn-take-break" class="btn-break hidden" data-i18n="shift_start_break">Take 15m Rest Break</button>
+            <button id="btn-clock-out" class="btn-clock-out hidden" data-i18n="shift_clock_out">Clock Out Shift</button>
+          </div>
+        </div>
+
+        <!-- Metric Cards -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label" data-i18n="stat_hours_worked">Recorded Hours (This Month)</div>
+            <div id="dash-stat-hours" class="stat-value">0.0 hrs</div>
+            <div class="stat-meta">Includes regular + verified overtime</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label" data-i18n="stat_estimated_pay">Est. Earnings to Date</div>
+            <div id="dash-stat-pay" class="stat-value">₹0</div>
+            <div class="stat-meta">Transparent gross earnings</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label" data-i18n="stat_pending_reports">Active Safety Reports</div>
+            <div id="dash-stat-reports" class="stat-value">0</div>
+            <div class="stat-meta">Under Safe Voice protection</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-label" data-i18n="stat_fatigue_index">Fatigue Risk Level</div>
+            <div id="dash-stat-fatigue" class="stat-value" style="font-size: 1.3rem;">Low (Safe)</div>
+            <div class="stat-meta">ILO 48h ceiling monitored</div>
+          </div>
+        </div>
+
+        <!-- Recent Shifts Preview Table -->
+        <div class="section-card">
+          <div class="section-card-header">
+            <div>
+              <h2 class="section-title" data-i18n="shift_history_title">Recent Shift Schedule & Attendance Log</h2>
+              <p class="section-subtitle">Verified by supervisors to ensure legal compliance and accurate payroll credits.</p>
+            </div>
+            <button class="btn-header" style="color: var(--primary-navy);" onclick="document.querySelector('[data-tab=shifts]').click();">
+              View Full History →
+            </button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="fair-table">
+              <thead>
+                <tr>
+                  <th data-i18n="table_date">Date</th>
+                  <th data-i18n="table_shift">Shift Type</th>
+                  <th data-i18n="table_clockin">Clock In</th>
+                  <th data-i18n="table_clockout">Clock Out</th>
+                  <th data-i18n="table_hours">Total Hours</th>
+                  <th data-i18n="table_overtime">Overtime</th>
+                  <th data-i18n="table_status">Status</th>
+                </tr>
+              </thead>
+              <tbody id="overview-recent-shifts-table">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBVIEW B: FULL ATTENDANCE & SHIFTS -->
+      <div id="view-shifts" class="hidden">
+        <div class="section-card">
+          <div class="section-card-header">
+            <div>
+              <h2 class="section-title" data-i18n="nav_shifts">Attendance & Shifts</h2>
+              <p class="section-subtitle">Complete chronological record of all logged hours, breaks, and supervisor sign-offs.</p>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="fair-table">
+              <thead>
+                <tr>
+                  <th data-i18n="table_date">Date</th>
+                  <th data-i18n="table_shift">Shift Type</th>
+                  <th data-i18n="table_clockin">Clock In</th>
+                  <th data-i18n="table_clockout">Clock Out</th>
+                  <th data-i18n="table_hours">Regular Hours</th>
+                  <th data-i18n="table_overtime">Overtime Hours</th>
+                  <th data-i18n="table_status">Verification Status</th>
+                </tr>
+              </thead>
+              <tbody id="full-shifts-table">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBVIEW C: EXPLAIN MY PAY -->
+      <div id="view-pay" class="hidden">
+        <div class="section-card">
+          <div class="section-card-header">
+            <div>
+              <h2 class="section-title" data-i18n="pay_title">Explain My Pay — Transparent Earnings Breakdown</h2>
+              <p class="section-subtitle" data-i18n="pay_subtitle">Zero hidden deductions. Every minute calculated transparently.</p>
+            </div>
+            <button id="btn-open-discrepancy-modal" class="btn-header btn-primary-header" data-i18n="report_discrepancy_btn">
+              Report Pay Discrepancy
+            </button>
+          </div>
+
+          <div class="pay-breakdown-grid">
+            <div class="pay-card-col">
+              <h4 style="font-size: 1rem; color: var(--primary-navy); margin-bottom: 12px; font-weight: 700;">
+                1. Earnings Calculation
+              </h4>
+              <div class="pay-row">
+                <span data-i18n="base_rate_label">Hourly Rate</span>
+                <strong id="pay-hourly-rate">₹0/hr</strong>
+              </div>
+              <div class="pay-row">
+                <span data-i18n="regular_hours_label">Regular Base Hours</span>
+                <span id="pay-regular-hours">0.0 hrs</span>
+              </div>
+              <div class="pay-row">
+                <span>Standard Base Pay Subtotal</span>
+                <strong id="pay-regular-subtotal">₹0</strong>
+              </div>
+              <div class="pay-row">
+                <span data-i18n="overtime_hours_label">Overtime Hours (1.5x Premium)</span>
+                <span id="pay-overtime-hours">0.0 hrs</span>
+              </div>
+              <div class="pay-row">
+                <span>Overtime Premium Subtotal</span>
+                <strong id="pay-overtime-subtotal">₹0</strong>
+              </div>
+              <div class="pay-row total-gross">
+                <span data-i18n="gross_earnings">Gross Total Earnings</span>
+                <span id="pay-gross-total">₹0</span>
+              </div>
+            </div>
+
+            <div class="pay-card-col">
+              <h4 style="font-size: 1rem; color: var(--primary-navy); margin-bottom: 12px; font-weight: 700;">
+                2. Transparent Statutory Deductions
+              </h4>
+              <div class="pay-row">
+                <span>Employees' Provident Fund (EPF 12%)</span>
+                <span id="pay-epf" style="color: var(--danger);">- ₹0</span>
+              </div>
+              <div class="pay-row">
+                <span>Employees' State Insurance (ESI 0.75%)</span>
+                <span id="pay-esi" style="color: var(--danger);">- ₹0</span>
+              </div>
+              <div class="pay-row">
+                <span>Labor Welfare Fund Contribution</span>
+                <span id="pay-welfare" style="color: var(--danger);">- ₹50</span>
+              </div>
+              <div class="pay-row total-net">
+                <span data-i18n="net_payable">Estimated Net Take-Home Pay</span>
+                <span id="pay-net-takehome">₹0</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Past Discrepancy Inquiries Table -->
+          <h4 style="font-size: 1rem; color: var(--primary-navy); margin: 24px 0 12px; font-weight: 700;">
+            Submitted Pay Discrepancy Tickets
+          </h4>
+          <div class="table-responsive">
+            <table class="fair-table">
+              <thead>
+                <tr>
+                  <th>Date Filed</th>
+                  <th>Hours Claimed</th>
+                  <th>Disputed Amount</th>
+                  <th>Reason Given</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="disputes-table-body">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBVIEW D: SAFE VOICE (SAFETY INCIDENTS & HAZARDS) -->
+      <div id="view-safety" class="hidden">
+        <div class="section-card">
+          <div class="section-card-header">
+            <div>
+              <h2 class="section-title" data-i18n="safety_title">Safe Voice — Confidential & Safer Workplace Reporting</h2>
+              <p class="section-subtitle" data-i18n="safety_subtitle">Speak up without fear of retaliation. All safety concerns are protected.</p>
+            </div>
+          </div>
+
+          <!-- Report Filing Form -->
+          <form id="form-safety-report" style="background: var(--bg-muted); padding: 20px; border-radius: var(--radius-md); margin-bottom: 24px;">
+            <h3 style="font-size: 1rem; margin-bottom: 16px; color: var(--primary-navy); font-weight: 700;" data-i18n="safety_report_new">
+              File Incident or Hazard Report
+            </h3>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div class="form-group">
+                <label for="safety-category" data-i18n="safety_type">Incident Category</label>
+                <select id="safety-category" required>
+                  <option value="Hazardous Equipment / Machinery" data-i18n="safety_type_hazard">Hazardous Equipment / Machinery</option>
+                  <option value="Chemical Spill / Inadequate Ventilation" data-i18n="safety_type_chemical">Chemical Spill / Inadequate Ventilation</option>
+                  <option value="Excessive Forced Hours / Fatigue Breach" data-i18n="safety_type_overtime">Excessive Forced Hours / Fatigue Breach</option>
+                  <option value="Workplace Harassment / Bullying" data-i18n="safety_type_harassment">Workplace Harassment / Bullying</option>
+                  <option value="Missing Safety Gear (PPE)" data-i18n="safety_type_ppe">Missing Safety Gear (PPE)</option>
+                  <option value="Near Miss Incident" data-i18n="safety_type_nearmiss">Near Miss Incident</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="safety-priority" data-i18n="safety_priority">Severity Level</label>
+                <select id="safety-priority" required>
+                  <option value="low" data-i18n="priority_low">Low (General Concern)</option>
+                  <option value="medium" selected data-i18n="priority_medium">Medium (Prompt Action)</option>
+                  <option value="high" data-i18n="priority_high">High (Urgent Risk)</option>
+                  <option value="critical" data-i18n="priority_critical">Critical (Imminent Danger)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="safety-location" data-i18n="safety_location">Exact Location / Floor / Zone</label>
+              <input type="text" id="safety-location" placeholder="e.g. Unit 3, Chemical Storage Room A" required />
+            </div>
+
+            <div class="form-group">
+              <label for="safety-description" data-i18n="safety_details">Detailed Description of Incident</label>
+              <textarea id="safety-description" rows="3" placeholder="Describe the hazard clearly..." required></textarea>
+            </div>
+
+            <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
+              <input type="checkbox" id="safety-anonymous-checkbox" style="width: auto; cursor: pointer;" checked />
+              <label for="safety-anonymous-checkbox" style="margin-bottom: 0; cursor: pointer;" data-i18n="safety_anonymous_toggle">
+                Submit Anonymously (Hide my name and work ID from supervisors)
+              </label>
+            </div>
+
+            <button type="submit" class="btn-submit" data-i18n="safety_submit">Submit Safe Voice Report</button>
+          </form>
+
+          <!-- Reference Code Tracker Search -->
+          <div style="background: white; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; margin-bottom: 24px;">
+            <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary-navy); margin-bottom: 8px;" data-i18n="safety_track_title">
+              Track Safety Reports
+            </h4>
+            <div style="display: flex; gap: 8px;">
+              <input type="text" id="safety-ref-search-input" placeholder="Enter Reference Code (e.g. SV-2026-8941)" style="flex: 1; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: var(--radius-sm);" />
+              <button id="btn-search-safety-ref" class="btn-header btn-primary-header">Check Status</button>
+            </div>
+            <div id="safety-search-result-box" class="hidden mt-12"></div>
+          </div>
+
+          <!-- Existing Reports List -->
+          <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary-navy); margin-bottom: 12px;">
+            Workplace Safety Reports Log
+          </h4>
+          <div id="safety-reports-list">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBVIEW E: ANONYMOUS FEEDBACK -->
+      <div id="view-feedback" class="hidden">
+        <div class="section-card">
+          <div class="section-card-header">
+            <div>
+              <h2 class="section-title" data-i18n="feedback_title">Anonymous Workplace Feedback Box</h2>
+              <p class="section-subtitle" data-i18n="feedback_subtitle">Share honest feedback about workplace culture, management, or facilities. Submissions never store sender credentials.</p>
+            </div>
+          </div>
+
+          <form id="form-feedback" style="background: var(--bg-muted); padding: 20px; border-radius: var(--radius-md); margin-bottom: 24px;">
+            <div class="form-group">
+              <label for="feedback-category">Feedback Topic</label>
+              <select id="feedback-category" required>
+                <option value="Workplace Culture & Fairness" data-i18n="feedback_cat_culture">Workplace Culture & Fairness</option>
+                <option value="Hygiene, Canteen & Restrooms" data-i18n="feedback_cat_facilities">Hygiene, Canteen & Restrooms</option>
+                <option value="Management Communication" data-i18n="feedback_cat_management">Management Communication</option>
+                <option value="Improvement Idea" data-i18n="feedback_cat_suggestion">Improvement Idea</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="feedback-text">Feedback Thoughts</label>
+              <textarea id="feedback-text" rows="4" placeholder="Type your feedback honestly and objectively..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit" data-i18n="feedback_submit">Post Anonymous Feedback</button>
+          </form>
+
+          <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary-navy); margin-bottom: 12px;">
+            Community Feedback Feed
+          </h4>
+          <div id="feedback-feed">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBVIEW F: SKILL PASSPORT -->
+      <div id="view-skills" class="hidden">
+        <div class="section-card">
+          <div class="section-card-header">
+            <div>
+              <h2 class="section-title" data-i18n="skill_title">Skill Passport & Verified Credentials</h2>
+              <p class="section-subtitle" data-i18n="skill_subtitle">Your portable record of recognized skills, safety training, and vocational certificates.</p>
+            </div>
+            <button id="btn-open-skill-modal" class="btn-header btn-primary-header" data-i18n="add_skill_btn">
+              + Register Training or Skill
+            </button>
+          </div>
+
+          <div id="skills-cards-container" class="skills-grid">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBVIEW G: FATIGUE ALERTS -->
+      <div id="view-fatigue" class="hidden">
+        <div class="section-card">
+          <div class="section-card-header">
+            <div>
+              <h2 class="section-title" data-i18n="fatigue_title">Fatigue Monitoring & Health Guard</h2>
+              <p class="section-subtitle" data-i18n="fatigue_subtitle">Automated safeguards preventing illegal overwork, shift exhaustion, and hazardous fatigue.</p>
+            </div>
+          </div>
+
+          <div style="background: var(--bg-muted); padding: 24px; border-radius: var(--radius-md); margin-bottom: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <strong style="color: var(--primary-navy);" data-i18n="fatigue_weekly_total">Total Weekly Hours</strong>
+              <span id="fatigue-weekly-hours-text" style="font-weight: 700; font-family: monospace;">0 / 48 hrs</span>
+            </div>
+            <div style="width: 100%; height: 14px; background: #E2E8F0; border-radius: 9999px; overflow: hidden; margin-bottom: 12px;">
+              <div id="fatigue-weekly-bar" style="width: 0%; height: 100%; background: var(--teal-accent); transition: width 0.4s ease;"></div>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted);" data-i18n="fatigue_threshold">
+              Weekly Legal Ceiling: 48 Hours (Standard ILO Norm)
+            </p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div style="background: white; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 18px;">
+              <h4 style="color: var(--teal-accent); font-weight: 700; margin-bottom: 6px;">💧 Regular Rest Periods</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted);" data-i18n="fatigue_alert_banner">
+                Safe work limit respected. Remember to stay hydrated and take scheduled rest breaks.
+              </p>
+            </div>
+
+            <div style="background: white; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 18px;">
+              <h4 style="color: var(--primary-navy); font-weight: 700; margin-bottom: 6px;">🌙 Shift Gap Guarantee</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted);" data-i18n="fatigue_rest_guarantee">
+                Mandatory 11-hour rest period between consecutive shifts strictly enforced.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBVIEW H: MANAGEMENT CONSOLE (SUPERVISOR & ADMIN ONLY) -->
+      <div id="view-admin" class="hidden">
+        <div class="section-card">
+          <div class="section-card-header">
+            <div>
+              <h2 class="section-title" data-i18n="admin_title">Management & Oversight Console</h2>
+              <p class="section-subtitle" data-i18n="admin_subtitle">Supervisory tools, compliance auditing, pay approvals, and hazard resolutions.</p>
+            </div>
+          </div>
+
+          <!-- Overview Stats for Admin -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-label" data-i18n="admin_workers_count">Total Active Personnel</div>
+              <div id="admin-workers-count" class="stat-value">0</div>
+              <div class="stat-meta">In this sector workspace</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-label" data-i18n="admin_pending_shifts">Shifts Awaiting Verification</div>
+              <div id="admin-pending-shifts-count" class="stat-value">0</div>
+              <div class="stat-meta">Pending clock-out audit</div>
+            </div>
+
+            <div class="stat-card warning">
+              <div class="stat-label" data-i18n="admin_open_hazards">Unresolved Hazards</div>
+              <div id="admin-open-hazards-count" class="stat-value">0</div>
+              <div class="stat-meta">Safe Voice escalations</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-label" data-i18n="admin_open_disputes">Pending Pay Queries</div>
+              <div id="admin-open-disputes-count" class="stat-value">0</div>
+              <div class="stat-meta">Discrepancy tickets</div>
+            </div>
+          </div>
+
+          <!-- Shifts Approval Queue -->
+          <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary-navy); margin: 24px 0 12px;">
+            1. Pending Shift Approvals
+          </h4>
+          <div class="table-responsive">
+            <table class="fair-table">
+              <thead>
+                <tr>
+                  <th data-i18n="table_worker_name">Worker Name</th>
+                  <th>Date</th>
+                  <th>Regular</th>
+                  <th>Overtime</th>
+                  <th>Notes</th>
+                  <th data-i18n="table_action">Action</th>
+                </tr>
+              </thead>
+              <tbody id="admin-shifts-queue-body">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Hazards Queue -->
+          <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary-navy); margin: 28px 0 12px;">
+            2. Safety Hazard Remediation Queue
+          </h4>
+          <div class="table-responsive">
+            <table class="fair-table">
+              <thead>
+                <tr>
+                  <th>Report Ref</th>
+                  <th>Location</th>
+                  <th>Severity</th>
+                  <th>Status</th>
+                  <th data-i18n="table_action">Action</th>
+                </tr>
+              </thead>
+              <tbody id="admin-hazards-queue-body">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pay Disputes Queue -->
+          <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary-navy); margin: 28px 0 12px;">
+            3. Payroll Discrepancy Adjustments
+          </h4>
+          <div class="table-responsive">
+            <table class="fair-table">
+              <thead>
+                <tr>
+                  <th data-i18n="table_worker_name">Worker</th>
+                  <th data-i18n="table_dispute_amount">Disputed Items</th>
+                  <th>Reason</th>
+                  <th>Status</th>
+                  <th data-i18n="table_action">Action</th>
+                </tr>
+              </thead>
+              <tbody id="admin-disputes-queue-body">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+  </div> <!-- /#app-portal-view -->
+
+  <!-- =========================================================================
+       MODALS
+       ========================================================================= -->
+
+  <!-- SUPABASE CONFIGURATION MODAL -->
+  <div id="supabase-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 data-i18n="connect_supabase">Connect Supabase</h3>
+        <button id="btn-close-supabase-modal" class="btn-close-modal">&times;</button>
+      </div>
+
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+        Connect your live Supabase project to persist data across devices using PostgreSQL and Row Level Security. If left empty, the application runs fully in Simulated Demo Mode with zero setup required.
+      </p>
+
+      <div class="form-group">
+        <label for="supabase-url-input">Supabase Project URL</label>
+        <input type="url" id="supabase-url-input" placeholder="https://xyzcompany.supabase.co" />
+      </div>
+
+      <div class="form-group">
+        <label for="supabase-key-input">Supabase Public Anon Key</label>
+        <input type="text" id="supabase-key-input" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." />
+      </div>
+
+      <div style="display: flex; gap: 8px; margin-top: 20px;">
+        <button id="btn-save-supabase" class="btn-submit" style="flex: 2;">Save & Connect</button>
+        <button id="btn-disconnect-supabase" class="btn-header hidden" style="flex: 1; color: var(--danger); border-color: var(--danger);">Disconnect</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAY DISCREPANCY TICKET MODAL -->
+  <div id="discrepancy-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 data-i18n="discrepancy_title">Submit Discrepancy Ticket</h3>
+        <button id="btn-close-discrepancy" class="btn-close-modal">&times;</button>
+      </div>
+
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;" data-i18n="discrepancy_desc">
+        Notice hours missing or pay deduction you did not authorize? File an audited query directly to Payroll.
+      </p>
+
+      <form id="form-discrepancy">
+        <div class="form-group">
+          <label for="dispute-hours">Disputed Hours Count</label>
+          <input type="number" id="dispute-hours" step="0.5" min="0.5" max="40" value="1.0" required />
+        </div>
+
+        <div class="form-group">
+          <label for="dispute-reason" data-i18n="discrepancy_reason">Reason for Inquiry</label>
+          <textarea id="dispute-reason" rows="3" placeholder="Explain missing overtime, incorrect clock-out time, or deductions..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit" data-i18n="discrepancy_submit">File Payroll Inquiry</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADD SKILL MODAL -->
+  <div id="skill-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 data-i18n="add_skill_btn">+ Register Training or Skill</h3>
+        <button id="btn-close-skill" class="btn-close-modal">&times;</button>
+      </div>
+
+      <form id="form-add-skill">
+        <div class="form-group">
+          <label for="skill-input-title" data-i18n="skill_name">Skill / Certification Title</label>
+          <input type="text" id="skill-input-title" placeholder="e.g. Hazardous Materials Level 2" required />
+        </div>
+
+        <div class="form-group">
+          <label for="skill-input-issuer" data-i18n="skill_issuer">Issuing Institution / Department</label>
+          <input type="text" id="skill-input-issuer" placeholder="e.g. State Safety Directorate" required />
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="form-group">
+            <label for="skill-input-date" data-i18n="skill_date">Date Completed</label>
+            <input type="date" id="skill-input-date" required />
+          </div>
+          <div class="form-group">
+            <label for="skill-input-expiry" data-i18n="skill_expiry">Valid Until</label>
+            <input type="date" id="skill-input-expiry" />
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Save Credential to Passport</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATIONS CONTAINER -->
+  <div id="toast-container"></div>
+
+  <!-- Official Supabase JavaScript CDN library -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Application Scripts -->
+  <script src="translations.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

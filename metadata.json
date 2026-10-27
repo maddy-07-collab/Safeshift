@@ -1,0 +1,6 @@
+{
+  "name": "FairShift 360",
+  "description": "Fair Work, Fair Pay, Safer Workplaces aligned with UN SDG 8. Multilingual workforce management with attendance, pay breakdown, safe voice reporting, and role-based dashboards.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
